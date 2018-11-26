@@ -15,10 +15,7 @@ To complete the project, two files will be submitted: a file containing project 
 To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
 
 
-# **Finding Lane Lines on the Road**
-
-
-The goals / steps of this project are the following:
+### The goals / steps of this project are the following:
 
 - Make a pipeline that finds lane lines on the road
 - Reflect on your work in a written report
@@ -54,7 +51,7 @@ My pipeline consisted the following steps.
 
 - Interpolate the left and right line segements into two lines. The left and right line segments are separated based on slope. The average value of the slope and intercepts are calculated to draw a single line.
 
-    <img src="./examples/lanelines_thirdPass.jpg" alt="drawing" width="300"/>
+    <img src="./examples/laneLines_thirdPass.jpg" alt="drawing" width="300"/>
 
 - The above pipeline is applied to on the videos as well.
   
