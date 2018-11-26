@@ -15,42 +15,63 @@ To complete the project, two files will be submitted: a file containing project 
 To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
-
-1. Describe the pipeline
-
-2. Identify any shortcomings
-
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
+# **Finding Lane Lines on the Road**
 
 
-The Project
+The goals / steps of this project are the following:
+
+- Make a pipeline that finds lane lines on the road
+- Reflect on your work in a written report
+
+
 ---
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
+### Reflection
 
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/83ec35ee-1e02-48a5-bdb7-d244bd47c2dc/lessons/8c82408b-a217-4d09-b81d-1bda4c6380ef/concepts/4f1870e0-3849-43e4-b670-12e6f2d4b7a7) if you haven't already.
+### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-**Step 2:** Open the code in a Jupyter Notebook
+My pipeline consisted the following steps.
 
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out [Udacity's free course on Anaconda and Jupyter Notebooks](https://classroom.udacity.com/courses/ud1111) to get started.
+- Convert the iimage to grayscale.
 
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
+    <img src="./examples/grayscale.jpg" alt="drawing" width="300"/>
 
-`> jupyter notebook`
+- Apply Gaussian filter on the grayscaled image to reduce the noise
 
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
+    <img src="./examples/gaussian_filter.jpg" alt="drawing" width="300"/>
 
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
+- Canny edge detection.Identify the edges where there's a large change in contrast
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+    <img src="./examples/canny_edge.jpg" alt="drawing" width="300"/>
+
+- Select the region of interest by using a mask
+
+    <img src="./examples/masked_image.jpg" alt="drawing" width="300"/>
+
+- Apply Hough transform to detect the lane line and add use red color for the detected lines
+
+    <img src="./examples/line-segments-example.jpg" alt="drawing" width="300"/>
+
+- Interpolate the left and right line segements into two lines. The left and right line segments are separated based on slope. The average value of the slope and intercepts are calculated to draw a single line.
+
+    <img src="./examples/lanelines_thirdPass.jpg" alt="drawing" width="300"/>
+
+- The above pipeline is applied to on the videos as well.
+  
+---
+
+### 2. Identify potential shortcomings with your current pipeline
+
+The current pipeline will not work in the following scenarios - 
+- When there's a low contrast difference between the lane road and road
+- Road turnings i.e., when the lane lines are curvy
+- When the camera doesn't capture both the lines correctly
+
+---
+
+### 3. Suggest possible improvements to your pipeline
+
+    - The pipeline should be able to detect the lanes even when there's a low contrast difference between the lanes and road. 
+    - Deep learning techniques have to be used to interpolate the line segments
+
 
